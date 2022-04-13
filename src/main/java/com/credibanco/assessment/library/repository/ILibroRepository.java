@@ -17,8 +17,7 @@ public interface ILibroRepository extends CrudRepository<Libro, Long> {
      */
     @Query(value = """
                    SELECT * FROM libros l 
-                   INNER JOIN editoriales ed ON l.editorial_id = ed.editorial_id
                    INNER JOIN autores au ON l.autor_id = au.autor_id
-                   WHERE au.nombre_completo =?1 or ed.nombre=?1 or l.anios=?1 """, nativeQuery = true)
+                   WHERE au.nombre_completo =?1 or l.titulo=?1 or l.anios=?1 """, nativeQuery = true)
     public List<Libro> findByTituloAutorAnio(String search);
 }

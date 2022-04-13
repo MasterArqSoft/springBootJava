@@ -2,11 +2,15 @@ package com.credibanco.assessment.library.controller;
 
 import com.credibanco.assessment.library.dto.LibroDto;
 import com.credibanco.assessment.library.service.impl.LibroService;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +42,7 @@ public class LibroController {
     }
 
     @GetMapping(value = "/libros/{search}")
-   List<LibroDto> getAllSearch(@PathVariable("search") @Valid @Min(3) String search) {
+   List<LibroDto> getAllSearch(@PathVariable("search") @Valid @Size(min = 2) String search) {
         return this.libroService.getAllLibrosSearch(search);
     }
 
@@ -57,10 +61,12 @@ public class LibroController {
     ResponseEntity<LibroDto> update(@PathVariable("id") @Min(1) long id, @Valid @RequestBody LibroDto libroDto) {
         return ResponseEntity.ok().body(this.libroService.updateLibro(id, libroDto));
     }
-
+    
     @DeleteMapping(value = "/libro/{id}")
-    ResponseEntity<String> delete(@PathVariable("id") @Min(1) long id) {
-        this.libroService.deleteLibro(id);
-        return ResponseEntity.ok().body("Libro eliminado correctamente!");
+    Map<String, Boolean> delete(@PathVariable("id") @Min(1) long id) {
+       this.libroService.deleteLibro(id);
+       Map <String, Boolean> response = new HashMap <> ();
+       response.put("deleted", Boolean.TRUE);
+       return response;
     }
 }

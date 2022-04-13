@@ -156,10 +156,4 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntityBuilder.build(err);
 
     }
-    
-    //@ExceptionHandler(ConstraintViolationException.class)
-    //public void constraintViolationException(HttpServletResponse response) throws IOException {
-     //   response.sendError(HttpStatus.BAD_REQUEST.value());
-   // }
-
 }

@@ -26,7 +26,7 @@ public class Libro implements Serializable {
     private String titulo;
 
     @Column(name = "ANIOS", length = 10)
-    private int anios;
+    private String anios;
 
     @Column(name = "GENERO", nullable = false, length = 200)
     private String genero;
@@ -51,7 +51,7 @@ public class Libro implements Serializable {
 
     public Libro(
             String titulo,
-            int anios,
+            String anios,
             String genero,
             int numeroPaginas,
             Editorial editorial,
@@ -74,7 +74,7 @@ public class Libro implements Serializable {
         this.titulo = titulo;
     }
 
-    public void setAnios(int anios) {
+    public void setAnios(String anios) {
         this.anios = anios;
     }
 
@@ -102,7 +102,7 @@ public class Libro implements Serializable {
         return this.titulo;
     }
 
-    public int getAnios() {
+    public String getAnios() {
         return this.anios;
     }
 

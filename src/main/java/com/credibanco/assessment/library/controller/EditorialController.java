@@ -2,7 +2,9 @@ package com.credibanco.assessment.library.controller;
 
 import com.credibanco.assessment.library.dto.EditorialDto;
 import com.credibanco.assessment.library.service.impl.EditorialService;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,9 +57,11 @@ public class EditorialController {
     }
 
     @DeleteMapping(value = "/editorial/{id}")
-    ResponseEntity<String> delete(@PathVariable("id") @Min(1) long id) {
+    Map<String, Boolean> delete(@PathVariable("id") @Min(1) long id) {
         this.editorialService.deleteEditorial(id);
-        return ResponseEntity.ok().body("Editorial eliminado correctamente!");  
+        Map <String, Boolean> response = new HashMap <> ();
+        response.put("deleted", Boolean.TRUE);
+        return response;  
     }
     
 }

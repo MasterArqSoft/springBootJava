@@ -13,7 +13,7 @@ public class LibroDto {
     @NotEmpty(message = "El título del libro no puede estar vacío.")
     @Size(min = 2, message = "El título del libro al menos debe contener 2 caractres.")
     private String titulo;
-    private int anios;
+    private String anios;
     @NotEmpty(message = "El género del libro no puede estar vacío.")
     @Size(min = 2, message = "El género del libro al menos debe contener 2 caractres.")
     private String genero;
@@ -56,14 +56,14 @@ public class LibroDto {
     /**
      * @return the anios
      */
-    public int getAnios() {
+    public String getAnios() {
         return anios;
     }
 
     /**
      * @param anios the anios to set
      */
-    public void setAnios(int anios) {
+    public void setAnios(String anios) {
         this.anios = anios;
     }
 
