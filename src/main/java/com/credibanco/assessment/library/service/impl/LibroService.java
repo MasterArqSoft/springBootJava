@@ -9,9 +9,8 @@ import com.credibanco.assessment.library.repository.IAutorRepository;
 import com.credibanco.assessment.library.repository.IEditorialRepository;
 import com.credibanco.assessment.library.repository.ILibroRepository;
 import com.credibanco.assessment.library.service.ILibroService;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,18 +35,17 @@ public class LibroService implements ILibroService {
 
     @Override
     public List<LibroDto> getAllLibros() {
-        List<LibroDto> libroDtos = new ArrayList<>();
         List<Libro> libros = (List<Libro>) libroRepository.findAll();
         if (libros.isEmpty()) {
             throw new ResourceNotFoundException("No hay resgistros de libros");
         }
-        libroRepository.findAll().forEach(libro -> libroDtos.add(convertEntityToDto(libro)));
+        List<LibroDto> libroDtos = libros.stream().map(libro -> convertEntityToDto(libro))
+                                   .collect(Collectors.toList());
         return libroDtos;
     }
 
     @Override
     public List<LibroDto> getAllLibrosSearch(String search) {
-        List<LibroDto> libroDtos = new ArrayList<>();
         if (search.isEmpty()) {
             return this.getAllLibros();
         }
@@ -55,7 +53,8 @@ public class LibroService implements ILibroService {
         if (libros.isEmpty()) {
             throw new ResourceNotFoundException("El libro buscado por " + search + " no existe algun registro.");
         }
-        libroRepository.findByTituloAutorAnio(search).forEach(libro -> libroDtos.add(convertEntityToDto(libro)));
+         List<LibroDto> libroDtos = libros.stream().map(libro -> convertEntityToDto(libro))
+                                                  .collect(Collectors.toList());
         return libroDtos;
     }
 

@@ -9,16 +9,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "AUTORES")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Autor implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "SEQ_AUTOR")
+    @SequenceGenerator(
+            name = "SEQ_AUTOR",
+            allocationSize = 1,
+            initialValue = 1)
     @Column(name = "AUTOR_ID")
     private long id;
     
@@ -37,69 +52,4 @@ public class Autor implements Serializable {
     
     @OneToMany(mappedBy = "autor")
     private List<Libro> libros;
-
-    public Autor() {
-    }
-
-    public Autor(
-            String nombreCompleto,
-            Date fechaNacimiento,
-            String ciudadProcedencia,
-            String email
-    ) {
-        this.nombreCompleto = nombreCompleto;
-        this.fechaNacimiento = fechaNacimiento;
-        this.ciudadProcedencia = ciudadProcedencia;
-        this.email = email;
-    }
-
-    //SET
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public void setCiudadProcedencia(String ciudadProcedencia) {
-        this.ciudadProcedencia = ciudadProcedencia;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
-    public void setCourses(List<Libro> libros) {
-        this.libros = libros;
-    }
-
-    //GET
-    public long getId() {
-        return this.id;
-    }
-
-    public String getNombreCompleto() {
-        return this.nombreCompleto;
-    }
-
-    public Date getFechaNacimiento() {
-        return this.fechaNacimiento;
-    }
-
-    public String getCiudadProcedencia() {
-        return this.ciudadProcedencia;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-    
-    public List<Libro> getLibros() {
-        return this.libros;
-    }
 }

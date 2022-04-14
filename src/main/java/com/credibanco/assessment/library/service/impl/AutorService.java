@@ -5,9 +5,8 @@ import com.credibanco.assessment.library.exceptions.ResourceNotFoundException;
 import com.credibanco.assessment.library.model.Autor;
 import com.credibanco.assessment.library.repository.IAutorRepository;
 import com.credibanco.assessment.library.service.IAutorService;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +25,12 @@ public class AutorService implements IAutorService {
 
     @Override
     public List<AutorDto> getAllAutores() {
-        List<AutorDto> autorDtos = new ArrayList<>();
         List<Autor> autores = (List<Autor>) autorRepository.findAll();
         if (autores.isEmpty()) {
             throw new ResourceNotFoundException("No hay resgistros de autores");
         }
-        autorRepository.findAll().forEach(autor -> autorDtos.add(modelMapper.map(autor, AutorDto.class)));
+        List<AutorDto> autorDtos = autores.stream().map(autor -> modelMapper.map(autor, AutorDto.class))
+                                   .collect(Collectors.toList());
         return autorDtos;
     }
 

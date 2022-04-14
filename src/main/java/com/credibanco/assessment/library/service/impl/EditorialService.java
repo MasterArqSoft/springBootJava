@@ -5,9 +5,8 @@ import com.credibanco.assessment.library.exceptions.ResourceNotFoundException;
 import com.credibanco.assessment.library.model.Editorial;
 import com.credibanco.assessment.library.repository.IEditorialRepository;
 import com.credibanco.assessment.library.service.IEditorialService;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +25,12 @@ public class EditorialService implements IEditorialService {
 
     @Override
     public List<EditorialDto> getAllEditoriales() {
-        List<EditorialDto> editorialDtos = new ArrayList<>();
         List<Editorial> editoriales = (List<Editorial>) editorialRepository.findAll();
         if (editoriales.isEmpty()) {
             throw new ResourceNotFoundException("No hay resgistros de editoriales");
         }
-        editorialRepository.findAll().forEach(editorial -> editorialDtos.add(modelMapper.map(editorial, EditorialDto.class)));
+         List<EditorialDto> editorialDtos = editoriales.stream().map(editorial -> modelMapper.map(editorial, EditorialDto.class))
+                                   .collect(Collectors.toList());
         return editorialDtos;
     }
 

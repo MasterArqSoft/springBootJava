@@ -4,9 +4,15 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LibroDto {
 
     private long id;
@@ -24,102 +30,4 @@ public class LibroDto {
     @NotEmpty(message = "El autor del libro no puede estar vacío.")
     @Size(min = 2, message = "El autor del libro al menos debe contener 2 caractres.")
     private String autor;
-
-    /**
-     * @return the id
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the titulo
-     */
-    public String getTitulo() {
-        return titulo;
-    }
-
-    /**
-     * @param titulo the titulo to set
-     */
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    /**
-     * @return the anios
-     */
-    public String getAnios() {
-        return anios;
-    }
-
-    /**
-     * @param anios the anios to set
-     */
-    public void setAnios(String anios) {
-        this.anios = anios;
-    }
-
-    /**
-     * @return the genero
-     */
-    public String getGenero() {
-        return genero;
-    }
-
-    /**
-     * @param genero the genero to set
-     */
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    /**
-     * @return the numeroPaginas
-     */
-    public int getNumeroPaginas() {
-        return numeroPaginas;
-    }
-
-    /**
-     * @param numeroPaginas the numeroPaginas to set
-     */
-    public void setNumeroPaginas(int numeroPaginas) {
-        this.numeroPaginas = numeroPaginas;
-    }
-
-    /**
-     * @return the editorial
-     */
-    public String getEditorial() {
-        return editorial;
-    }
-
-    /**
-     * @param editorial the editorial to set
-     */
-    public void setEditorial(String editorial) {
-        this.editorial = editorial;
-    }
-
-    /**
-     * @return the autor
-     */
-    public String getAutor() {
-        return autor;
-    }
-
-    /**
-     * @param autor the autor to set
-     */
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
 }

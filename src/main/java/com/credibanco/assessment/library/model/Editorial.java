@@ -8,14 +8,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "EDITORIALES")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Editorial implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "SEQ_EDITORIAL")
+    @SequenceGenerator(
+            name = "SEQ_EDITORIAL",
+            allocationSize = 1,
+            initialValue = 1)
     @Column(name = "EDITORIAL_ID")
     private long id;
 
@@ -36,75 +51,4 @@ public class Editorial implements Serializable {
     
     @OneToMany(mappedBy = "editorial")
     private List<Libro> libros;
-
-    public Editorial() {
-    }
-
-    public Editorial(
-            String nombre,
-            String direccion,
-            String telefono,
-            String email,
-            int maximoLibros
-    ) {
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.email = email;
-        this.maximoLibros = maximoLibros;
-    }
-
-    //SET
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setMaximoLibros(int maximoLibros) {
-        this.maximoLibros = maximoLibros;
-    }
-
-    //GET
-    public long getId() {
-        return this.id;
-    }
-
-    public String getNombre() {
-        return this.nombre;
-    }
-
-    public String getDireccion() {
-        return this.direccion;
-    }
-
-    public String getTelefono() {
-        return this.telefono;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public int getMaximoLibros() {
-        return this.maximoLibros;
-    }
-
-    public List<Libro> getLibros() {
-        return this.libros;
-    }
 }
